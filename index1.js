@@ -38,6 +38,28 @@ app.post('/articles', function(req, res){
 	res.send('seccess!');
 });
 
+app.post('/articlesTask6', function(req, res){
+		var password = req.body.password;
+		var email = req.body.email;
+		function validateEmail(email) {
+    		var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    		return re.test(email);
+		}
+	if (email == '' && password == '') {
+		res.status(406);
+		res.send('All field must be filled');
+	}
+	if (!validateEmail(email)) {
+		res.status(406);
+		res.send('incorect email');
+	}
+	if (password.length < 7) {
+		res.status(406);
+		res.send('password too short');
+	}
+	res.send('success!');
+});
+
 app.get('/articles/:id', function(req, res){
 	console.log(req.params.id);
 	var article =  _.find(articles, function(elm){
